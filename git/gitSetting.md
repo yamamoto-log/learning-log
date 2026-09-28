@@ -93,7 +93,7 @@ Hi GitHub のアカウント名! You've successfully authenticated, but GitHub d
 <br>
 <br>
 
-## 初めてリポジトリを作成する
+## リポジトリの接続
 
 - 下記の2通りがある。
   - ローカルリポジトリを作成した後にGitHubにpushする場合
