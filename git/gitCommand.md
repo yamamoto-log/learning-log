@@ -10,3 +10,7 @@
   * $ git switch main
   * $ git branch -D myedit
   * $ git push origin --delete myedit
+
+- コミットとpushの確認
+  * $ git status -sb
+  * $ git log origin/main..HEAD --oneline
