@@ -7,8 +7,8 @@
 ### 1. インストール手順【LinuxMintの場合】
 
 ```bash
-sudo apt update
-sudo apt install git
+$ sudo apt update
+$ sudo apt install git
 ```
 
 ### 2. 初期設定（ユーザー登録）
@@ -16,32 +16,32 @@ sudo apt install git
 - メールアドレスとアカウント名をGitに登録
 
 ```bash
-git config --global user.email "Githubで発行されたメールアドレス"
-git config --global user.name "アカウント名"
+$ git config --global user.email "Githubで発行されたメールアドレス"
+$ git config --global user.name "アカウント名"
 ```
 
 - コミットコメント入力用エディタを vsCode に指定
 
 ```bash
-git config --global core.editor "code --wait"
+$ git config --global core.editor "code --wait"
 ```
 
 - デフォルトブランチ名を master ではなく main に設定
 
 ```bash
-git config --global init.defaultBranch main
+$ git config --global init.defaultBranch main
 ```
 
 - 設定が反映されているか確認
 
 ```bash
-git config --global --list
+$ git config --global --list
 ```
 
 - 間違いがある場合の取り消しコマンド
 
 ```bash
-git config --global --unset 設定項目
+$ git config --global --unset 設定項目
 ```
 
 <br>
@@ -54,7 +54,7 @@ git config --global --unset 設定項目
 - 秘密鍵と公開鍵のペアを作成
 
 ```bash
-ssh -keygen
+$ ssh -keygen
 (任意のパスフレーズを決めて入力)
 (再度パスフレーズを入力)
 ```
@@ -79,7 +79,7 @@ ssh -keygen
 ### 3. 正しく鍵が登録されたか確認
 
 ```bash
-ssh -T git@github.com
+$ ssh -T git@github.com
 (yes を入力)
 (パスフレーズを入力)
 ```
@@ -87,7 +87,7 @@ ssh -T git@github.com
 - 下記のように表示されたら完了。
 
 ```bash
-Hi GitHub のアカウント名! You've successfully authenticated, but GitHub does not provide shell access.
+$ Hi GitHub のアカウント名! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
 <br>
@@ -102,42 +102,42 @@ Hi GitHub のアカウント名! You've successfully authenticated, but GitHub d
 ### 【ローカルリポジトリから作成する場合】
 **★git initを使う**  
 **★接続設定（上流ブランチ）は手動で設定が必要**
+**★まずGitHubにローカルリポジトリと同名のリモートリポジトリを作成しておくこと**
 * ローカルリポジトリとなるディレクトリを作成
 ```bash
-cd ~/Documents
-mkdir gitTest
+$ cd ~/Documents
+$ mkdir gitTest
 ```
 * ローカルリポジトリの初期化
 ```bash
-cd Documents/gitTest
-git init
+$ cd Documents/gitTest
+$ git init
 ```
 * .gitが作成されたことを確認
 ```bash
-ls -la
+$ ls -la
 ```
 * 現在の状態を確認
 ```bash
-git status
+$ git status
 ```
 * ステージングエリアに追加
 ```bash
-git add .
+$ git add .
 ```
-* コミット
+* コミット（空のコミットがおすすめ）
 ```bash
-git commit -m "任意のコミットメッセージ"
+$ git commit --allow-empty -m "first commit"
+
 ```
 * GitHub上に空のリモートリポジトリを作成する
-* 空のリモートリポジトリを、「origin」というエイリアス名で、Git の gitTest ローカルリ
-ポジトリに登録
+* 空のリモートリポジトリを、「origin」というエイリアス名で、Git の gitTest ローカルリポジトリに登録
 ```bash
-git remote add origin git@github.com: GitHubのアカウント名/
-gitTest.git
+$ git remote add origin git@github.com:GitHubのアカウント名/gitTest.git
 ```
 * Git のgitTestリポジトリを、空のリモートリポジトリ「gitTest2.git」へ登録する
 ```bash
-git push -u origin main
+$ git push -u origin main
 (パスフレーズを入力)
 ```
 * -uは--set-upstream
@@ -152,8 +152,8 @@ git push -u origin main
 **★接続設定は自動で完了**
 * git cloneする
 ```bash
-cd ~/Documents
-git clone git@github.com: GitHubのアカウント名/gitTest.git
+$ cd ~/Documents
+$ git clone git@github.com: GitHubのアカウント名/gitTest.git
 (パスフレーズを入力)
 ```
 * Documentsフォルダに、GitHubリモートリポジトリと同名の「gitTest」ディレクトリが作成された
