@@ -153,7 +153,7 @@ git push -u origin main
 * git cloneする
 ```bash
 cd ~/Documents
-git clone git@github.com: GitHubのアカウント名/gitTest.git
+git clone git@github.com:GitHubのアカウント名/gitTest.git
 (パスフレーズを入力)
 ```
 * Documentsフォルダに、GitHubリモートリポジトリと同名の「gitTest」ディレクトリが作成された
