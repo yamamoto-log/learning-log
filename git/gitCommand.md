@@ -6,3 +6,11 @@
 - 設定の確認
   * $ git config --global --list
 
+- ブランチの削除
+  * $ git switch main
+  * $ git branch -D myedit
+  * $ git push origin --delete myedit
+
+- コミットとpushの確認
+  * $ git status -sb
+  * $ git log origin/main..HEAD --oneline
