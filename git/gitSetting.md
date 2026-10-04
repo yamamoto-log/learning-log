@@ -160,4 +160,4 @@ git clone git@github.com:GitHubのアカウント名/gitTest.git
 * この中に、GitHubから「.git」リポジトリがコピーされた
 * リモート追跡ブランチと上流ブランチが自動で設定された
 
-## 
+## GitHub Pagesの設定
