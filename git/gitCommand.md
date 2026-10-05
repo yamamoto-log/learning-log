@@ -45,6 +45,13 @@
 
 - コミットとpushの確認
   * $ git status -sb
+  * $ git log --oneline
   * $ git log origin/main..HEAD --oneline
+
+- コミットメッセージの変更
+  * $ git rebase -i HEAD~3 // 何個前か
+  * pick -> reword // エディタにて修正したいコミットメッセージのpickをrewordに変更
+  * git push origin ブランチ名 --force-with-lease
+
 
 
