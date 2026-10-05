@@ -51,7 +51,14 @@
 - コミットメッセージの変更
   * $ git rebase -i HEAD~3 // 何個前か
   * pick -> reword // エディタにて修正したいコミットメッセージのpickをrewordに変更
-  * git push origin ブランチ名 --force-with-lease
+  * $ git push origin ブランチ名 --force-with-lease
 
+- push後にブランチを変更する（merge前）
+  * 1. ローカルのブランチ名を修正
+    * $ git branch -m feature/login
+  * 2. 新しいブランチを push
+    * $ git push origin -u feature/login
+  * 3. リモートの古いブランチを削除
+    * $ git push origin --delete feture/login
 
 
