@@ -171,3 +171,50 @@ git push -u origin fix/dev-app-new
   ```bash
   git branch -D fix/dev-app
   ```
+
+<br>
+<br>
+<br>
+<br>
+# Gitトラブルシューティング手順書：mainブランチへの誤コミットを別ブランチへ退避する方法
+
+## 1. 発生したトラブル
+`main` ブランチのまま作業を進め、誤って複数回（今回は2回）`git commit` を実行してしまった。
+
+---
+
+## 2. 仕組みと対処の考え方
+現在の状態から新しいブランチを作成すると、そのコミット履歴は新ブランチへ引き継がれます。
+ただし、**それだけでは `main` ブランチ側にも誤コミットが残ったまま**になってしまうため、以下の3ステップで対処します。
+
+1. **新ブランチの作成**: 現在のコミット状態を新ブランチへ退避する
+2. **main の巻き戻し**: `main` ブランチに戻り、誤ったコミット分だけ過去の状態へリセットする
+3. **新ブランチの Push**: 退避先のブランチへ移動し、リモート（GitHubなど）へ Push する
+
+---
+
+## 3. 実行手順（2コミット分を退避する場合）
+
+### Step 1. 現在の状態で新作業ブランチを作成して移動する
+```bash
+git switch -c feature-branch
+```
+### Step 2. main ブランチに戻り、コミットを巻き戻す
+```bash
+git switch main
+git reset --hard HEAD~2
+```
+### Step 3. 新作業ブランチへ切り替えて Push する
+```bash
+git switch feature-branch
+git push -u origin feature-branch
+```
+
+## 4. 補足・注意点
+### Q1. リモートの main と完全に同じ状態に戻したい場合は？
+* git reset --hard HEAD~2 の代わりに、以下を実行してリモートの main と同調させることも可能です。
+```bash
+git reset --hard origin/main
+```
+### Q2. すでに main をリモートに Push してしまっている場合は？
+* この手順（git reset --hard）は main への誤コミットをまだリモートへ Push していない場合にのみ有効です。すでに Push 済みの場合は、履歴を強制上書きするか git revert で打ち消しコミットを作る必要があります。
