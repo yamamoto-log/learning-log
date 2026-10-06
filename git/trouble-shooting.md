@@ -100,3 +100,74 @@ git push origin main
 2. 🏫 **開始時（次の場所でPCを開いたとき）：** コードを1文字も書く前に、必ず `git pull` を行う。
 
 「移動する前は push、移動した後は pull」をセットにすることで、常に一本の綺麗な歴史の上で作業を継続できる。
+
+<br>
+<br>
+<br>
+<br>
+
+# Gitトラブルシューティング手順書：未追跡ファイルの復元とPR履歴衝突の解消
+
+## 1. 発生したトラブル
+- `git reset --hard` により未コミット・未追跡ファイルが消失。
+- `git fsck --lost-found` を用いてオブジェクト（dangling tree `b47691f`）からファイルを復元し、ブランチ `fix/dev-app` を作成。
+- GitHub上で `main` ブランチへプルリクエストを作成しようとした際、以下のエラーが発生して比較・マージが不能となった。
+  > **There isn’t anything to compare. main and fix/dev-app are entirely different commit histories.**
+
+---
+
+## 2. 原因
+復元したオブジェクトから直接作成したブランチ（`fix/dev-app`）は、`main` ブランチのコミット履歴（親コミット）を引き継いでおらず、**完全に独立した履歴（Root Commit）** になっていたため。
+
+---
+
+## 3. 解決手順（クリーンなブランチへの移行）
+
+`main` ブランチをベースにした新しいブランチを作成し、復元したファイルの「状態」のみを移植してPushします。
+
+### Step 1. main ブランチを最新化する
+```bash
+git switch main
+git pull origin main
+```
+
+### Step 2. main から新作業ブランチを作成する
+```bash
+git switch -c fix/dev-app-new
+```
+
+### Step 3. 旧復元ブランチからファイル群をコピーする
+```bash
+git checkout fix/dev-app -- .
+```
+
+### Step 4. コミットして GitHub へ Push する
+```bash
+git add .
+git commit -m "復元したファイルを反映"
+git push -u origin fix/dev-app-new
+```
+
+### Step 5. 新しいプルリクエストを作成する
+* GitHubの画面を開き、fix/dev-app-new 用の黄色い帯にある「Compare & pull request」ボタンを押す。
+
+* ベース（base: main）← 比較（compare: fix/dev-app-new）になっていること、および「Able to merge」と表示されていることを確認してPRを作成する。
+
+## 4. 関連Tips・よくある質問
+### Q1. 旧ブランチ（fix/dev-app）用の「Compare & pull request」案内はどうすればいい？
+* 対応: 完全に無視（放置）して問題ありません。
+
+* 理由: Push通知バナーは生成から約1時間で自動的に消去されます。もし誤って旧PRを作成してしまっていた場合は、PRページ最下部の「Close pull request」で閉じておきます。
+
+### Q2. ローカルの旧ブランチ（fix/dev-app）が削除できない時は？
+* 原因: 削除対象のブランチ上に滞在しているか、main に未マージのためGitの安全装置（-d）が働いている。
+
+* 対処法:
+  * 別のブランチへ移動する:
+  ```bash
+  git switch main
+  ```
+  * 大文字の -D オプションで強制削除する:
+  ```bash
+  git branch -D fix/dev-app
+  ```
