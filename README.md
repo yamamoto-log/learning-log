@@ -15,6 +15,15 @@
 
 ## 🗓 学習日誌
 ---
+### 2026/10/15
+* 在庫・箱管理システム
+  - CREATE文の作成
+* Linux(AlmaLinuxにApacheをインストール)
+* Java
+* 基本情報科目B
+* ExcelVBA
+* WordPress
+---
 ### 2026/10/14
 * 職務経歴書作成
 * WordPress
