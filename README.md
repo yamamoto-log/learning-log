@@ -15,9 +15,18 @@
 
 ## 🗓 学習日誌
 ---
+### 2026/10/16
+* 在庫・箱管理システム
+  - CREATE文の作成(stocks)
+* Laravel
+* Linux(WSLディストリビューションのインポートとエクスポート)
+* 基本情報科目B
+* SQL
+* Java
+---
 ### 2026/10/15
 * 在庫・箱管理システム
-  - CREATE文の作成
+  - CREATE文の作成(locations)
 * Linux(AlmaLinuxにApacheをインストール)
 * Java
 * 基本情報科目B
