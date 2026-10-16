@@ -89,3 +89,55 @@ $ sudo firewall-cmd --runtime-to-permanent
 
 * AlmaLinuxを再起動して設定を確認する
 * Windowsのブラウザでhttp://192.168.56.101/を開き、AlmaLinux Test Pageが表示されたら動作確認完了。
+
+<br>
+<br>
+<br>
+
+# ApacheによるWebサーバ構築（WSL2 Ubuntu-24.04）
+
+## 1. Apacheのインストール
+
+* WSL2 Ubuntu3を起動
+```bash
+PS C:\Users\〇〇〇 > wsl -d Ubuntu3
+```
+
+* リポジトリパッケージ情報のインデックスを更新
+```bash
+$ sudo apt update
+```
+
+* Apacheのインストール
+```bash
+$ sudo apt install -y apache2
+```
+* systemctlコマンドによりApacheの状態を確認
+```bash
+$ systemctl status apache2
+```
+
+* インストールしたApacheのバージョンを確認
+```bash
+$ apache2 -V
+```
+
+* OS起動時、Apacheが自動起動する設定になっているか確認
+```bash
+$ systemctl is-enabled apache2
+```
+
+* ブラウザを起動、URL欄に「http://localhost/」と入力し動作確認
+
+
+## 2. ユーザ別公開ディレクトリの設定
+
+### (1) ドキュメントルートをホームディレクトリへ移動
+* Apache標準のドキュメントルート「/var/www/html/」を、ログインユーザのホームディレクトリ「/home/*/public_html」(*はログインユーザ名)に移すことができれば、Webソースファイルをホームディレクトリ内でログインユーザの権限により簡単に作成・更新できるので都合がよい。もちろん別途ApacheがWebソースファイルをフルコントロールできるような権限設定も必要。
+
+### (2) Apache2の設定ファイルについて
+* Debian系Ubuntuなどのディストリビューションは、apache2.confが設定ファイル(a2en...有効、a2dis...無効)。
+* RedHat系ディストリビューション(Alma Linux他)は、httpd.confと、拡張子がconfのいくつかのファイルが設定ファイル。
+
+
+
